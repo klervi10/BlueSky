@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.content.Intent
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
@@ -15,6 +16,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -32,12 +34,31 @@ class MainActivity : ComponentActivity() {
             BlueSkyTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = Color.Blue
-                ) {
-                    Column {
-                        Header()
+                    color = Color.Transparent,
+                    contentColor = Color.White,
+                    content = {
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            // Utilisation de Canvas pour dessiner le dégradé de couleurs en arrière-plan
+                            Canvas(modifier = Modifier.fillMaxSize()) {
+                                drawRect(
+                                    brush = Brush.verticalGradient(
+                                        colors = listOf(
+                                            Color(0xFF005BC3), // Bleu foncé
+                                            Color(0xFF6CB8EB)  // Bleu clair
+                                        )
+                                    ),
+                                    size = size
+                                )
+                            }
+                            Column {
+                                Header()
+                            }
+                        }
                     }
-                }
+                )
             }
         }
     }
@@ -64,31 +85,13 @@ fun Header() {
             style = TextStyle(
                 color = Color.White,
                 fontWeight = FontWeight.Bold,
-                fontSize = 22.sp
+                fontSize = 25.sp
             ),
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(horizontal = 16.dp)
         )
 
-        Spacer(modifier = Modifier.height(70.dp))
-        Button(
-            onClick = { /* Handle Accueil button click */ },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(60.dp)
-                .padding(horizontal = 32.dp)
-                .wrapContentHeight(Alignment.CenterVertically),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color.White,
-                contentColor = Color.Blue)
-        ) {
-            Text(
-                "Accueil",
-                fontSize = 18.sp,
-                textAlign = TextAlign.Center
-            )
-        }
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(50.dp))
         Button(
             onClick = { /* Handle Mon Air button click */ },
             modifier = Modifier
