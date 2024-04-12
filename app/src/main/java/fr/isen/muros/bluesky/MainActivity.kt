@@ -41,13 +41,12 @@ class MainActivity : ComponentActivity() {
                             modifier = Modifier.fillMaxSize(),
                             contentAlignment = Alignment.Center
                         ) {
-                            // Utilisation de Canvas pour dessiner le dégradé de couleurs en arrière-plan
                             Canvas(modifier = Modifier.fillMaxSize()) {
                                 drawRect(
                                     brush = Brush.verticalGradient(
                                         colors = listOf(
-                                            Color(0xFF005BC3), // Bleu foncé
-                                            Color(0xFF6CB8EB)  // Bleu clair
+                                            Color(0xFF005BC3),
+                                            Color(0xFF6CB8EB)
                                         )
                                     ),
                                     size = size
@@ -132,7 +131,7 @@ fun Header() {
         }
         Spacer(modifier = Modifier.height(16.dp))
         Button(
-            onClick = { /* Handle Mes appareils button click */ },
+            onClick = {  },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(60.dp)
