@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:661212588046:android:8c17446caedcc06ac4745f",
         "android_client_info": {
-          "package_name": "com.exemple.bluesky"
+          "package_name": "fr.isen.muros.bluesky"
         }
       },
       "oauth_client": [],

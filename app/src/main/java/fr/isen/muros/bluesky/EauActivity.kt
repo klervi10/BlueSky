@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.Alignment
@@ -22,6 +21,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.Color
+import androidx.compose.foundation.border
 import fr.isen.muros.bluesky.ui.theme.BlueSkyTheme
 
 class EauActivity : ComponentActivity() {
@@ -75,10 +76,167 @@ fun EauScreen() {
                 .fillMaxWidth()
                 .verticalScroll(rememberScrollState())
         ) {
-            //contenu de la page
+            Data()
         }
 
         NavigationBar(modifier = Modifier.fillMaxWidth())
+    }
+}
+
+@Composable
+fun Data() {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color(0x6B0060F0)),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Box(
+                modifier = Modifier
+                    .border(1.dp, Color.Black)
+                    .padding(4.dp)
+                    .weight(1f)
+                    .fillMaxWidth()
+                    .aspectRatio(1f),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "Paramètres",
+                    textAlign = TextAlign.Center,
+                    style = TextStyle(fontWeight = FontWeight.Bold)
+                )
+            }
+            Box(
+                modifier = Modifier
+                    .border(1.dp, Color.Black)
+                    .padding(4.dp)
+                    .weight(1f)
+                    .fillMaxWidth()
+                    .aspectRatio(1f),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "Vos Valeurs",
+                    textAlign = TextAlign.Center,
+                    style = TextStyle(fontWeight = FontWeight.Bold)
+                )
+            }
+            Box(
+                modifier = Modifier
+                    .border(1.dp, Color.Black)
+                    .padding(4.dp)
+                    .weight(1f)
+                    .fillMaxWidth()
+                    .aspectRatio(1f),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "Valeurs acceptables",
+                    textAlign = TextAlign.Center,
+                    style = TextStyle(fontWeight = FontWeight.Bold)
+                )
+            }
+        }
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Box(
+                modifier = Modifier
+                    .border(1.dp, Color.Black)
+                    .padding(4.dp)
+                    .weight(1f)
+                    .fillMaxWidth()
+                    .aspectRatio(1f),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "Turbidité",
+                    textAlign = TextAlign.Center,
+                )
+            }
+            Box(
+                modifier = Modifier
+                    .border(1.dp, Color.Black)
+                    .padding(4.dp)
+                    .weight(1f)
+                    .fillMaxWidth()
+                    .aspectRatio(1f),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "val turb",
+                    textAlign = TextAlign.Center,
+                )
+            }
+            Box(
+                modifier = Modifier
+                    .border(1.dp, Color.Black)
+                    .padding(4.dp)
+                    .weight(1f)
+                    .fillMaxWidth()
+                    .aspectRatio(1f),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = " 0 - 300    (µg/m3)",
+                    textAlign = TextAlign.Center,
+                    //style = TextStyle(fontWeight = FontWeight.Bold)
+                )
+            }
+        }
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Box(
+                modifier = Modifier
+                    .border(1.dp, Color.Black)
+                    .padding(4.dp)
+                    .weight(1f)
+                    .fillMaxWidth()
+                    .aspectRatio(1f),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "pH",
+                    textAlign = TextAlign.Center,
+                    )
+            }
+            Box(
+                modifier = Modifier
+                    .border(1.dp, Color.Black)
+                    .padding(4.dp)
+                    .weight(1f)
+                    .fillMaxWidth()
+                    .aspectRatio(1f),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "val_pH",
+                    textAlign = TextAlign.Center,
+                )
+            }
+            Box(
+                modifier = Modifier
+                    .border(1.dp, Color.Black)
+                    .padding(4.dp)
+                    .weight(1f)
+                    .fillMaxWidth()
+                    .aspectRatio(1f),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "0 - 1000 (ppm)",
+                    textAlign = TextAlign.Center,
+                )
+            }
+        }
     }
 }
 
