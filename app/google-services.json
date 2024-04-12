@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "661212588046",
+    "firebase_url": "https://bluesky-a4117-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "bluesky-a4117",
+    "storage_bucket": "bluesky-a4117.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:661212588046:android:8c17446caedcc06ac4745f",
+        "android_client_info": {
+          "package_name": "com.exemple.bluesky"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTcEv0aAkNQzAs7w9V_KRWZ8ckn4IiLEM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
