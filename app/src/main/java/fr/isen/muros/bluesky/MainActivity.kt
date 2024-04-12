@@ -93,7 +93,8 @@ fun Header() {
 
         Spacer(modifier = Modifier.height(50.dp))
         Button(
-            onClick = { /* Handle Mon Air button click */ },
+            onClick = {val intent = Intent(context, AirActivity::class.java)
+                context.startActivity(intent)},
             modifier = Modifier
                 .fillMaxWidth()
                 .height(60.dp)

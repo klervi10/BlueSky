@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">BlueSky</string>
     <string name="title_activity_eau">EauActivity</string>
+    <string name="title_activity_air">AirActivity</string>
 </resources>
