@@ -2,27 +2,35 @@ package fr.isen.muros.bluesky
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.compose.runtime.Composable
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.Color
-import androidx.compose.foundation.border
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import fr.isen.muros.bluesky.ui.theme.BlueSkyTheme
 
 class EauActivity : ComponentActivity() {
@@ -63,6 +71,27 @@ fun ToolBar(modifier: Modifier= Modifier) {
 
 @Composable
 fun EauScreen() {
+    val database = FirebaseDatabase.getInstance("https://bluesky-a4117-default-rtdb.europe-west1.firebasedatabase.app/")
+    val ref = database.getReference("/")
+
+    var pH by remember { mutableStateOf<String?>(null) }
+    var turbidite by remember { mutableStateOf<String?>(null) }
+
+    LaunchedEffect(Unit) {
+        ref.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                pH = snapshot.child("pH").getValue(String::class.java)
+                turbidite = snapshot.child("turbidite").getValue(String::class.java)
+                Log.d("EauScreen", "pH: $pH")
+                Log.d("EauScreen", "Turbidité: $turbidite")
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("EauScreen", "Erreur lors de la récupération des données: ${error.message}")
+            }
+        })
+    }
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -76,7 +105,7 @@ fun EauScreen() {
                 .fillMaxWidth()
                 .verticalScroll(rememberScrollState())
         ) {
-            Data()
+            Data(pH, turbidite)
         }
 
         NavigationBar(modifier = Modifier.fillMaxWidth())
@@ -84,7 +113,7 @@ fun EauScreen() {
 }
 
 @Composable
-fun Data() {
+fun Data(pH: String?, turbidite: String?) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -170,7 +199,7 @@ fun Data() {
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = "val turb",
+                    text = turbidite ?: "",
                     textAlign = TextAlign.Center,
                 )
             }
@@ -218,7 +247,7 @@ fun Data() {
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = "val_pH",
+                    text = pH ?: "",
                     textAlign = TextAlign.Center,
                 )
             }
@@ -282,7 +311,7 @@ fun NavigationBar(modifier: Modifier = Modifier) {
             contentDescription = "Image 3",
             modifier = Modifier
                 .size(36.dp)
-                .clickable {  }
+                .clickable { }
                 .padding(8.dp),
             colorFilter = ColorFilter.tint(iconTint)
         )
@@ -291,7 +320,7 @@ fun NavigationBar(modifier: Modifier = Modifier) {
             contentDescription = "Image 4",
             modifier = Modifier
                 .size(36.dp)
-                .clickable {  }
+                .clickable { }
                 .padding(8.dp),
             colorFilter = ColorFilter.tint(iconTint)
         )
