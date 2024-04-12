@@ -12,6 +12,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.*
@@ -25,12 +26,11 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import fr.isen.muros.bluesky.ui.theme.BlueSkyTheme
 
 class EauActivity : ComponentActivity() {
@@ -46,6 +46,55 @@ class EauActivity : ComponentActivity() {
                 }
             }
         }
+    }
+}
+
+@Composable
+fun EauScreen() {
+    val database = FirebaseDatabase.getInstance("https://bluesky-a4117-default-rtdb.europe-west1.firebasedatabase.app/")
+    val ref = database.getReference("/")
+
+    var pH by remember { mutableStateOf<String?>(null) }
+    var turbidite by remember { mutableStateOf<String?>(null) }
+    var valIndex by remember { mutableStateOf<Int?>(null) }
+
+    LaunchedEffect(Unit) {
+        ref.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                pH = snapshot.child("pH").getValue(String::class.java)
+                turbidite = snapshot.child("turbidite").getValue(String::class.java)
+                valIndex = snapshot.child("index_eau").getValue(Int::class.java)
+                Log.d("EauScreen", "pH: $pH")
+                Log.d("EauScreen", "Turbidité: $turbidite")
+                Log.d("Index de l'eau", "index de l'eau : $valIndex")
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("EauScreen", "Erreur lors de la récupération des données: ${error.message}")
+            }
+        })
+    }
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight()
+    ) {
+        ToolBar(modifier = Modifier.fillMaxWidth())
+
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxWidth()
+                .verticalScroll(rememberScrollState())
+        ) {
+            valIndex?.let {
+                IndexEau(it)
+            }
+            DataEau(pH, turbidite)
+        }
+
+        NavigationBar(modifier = Modifier.fillMaxWidth())
     }
 }
 
@@ -70,50 +119,38 @@ fun ToolBar(modifier: Modifier= Modifier) {
 }
 
 @Composable
-fun EauScreen() {
-    val database = FirebaseDatabase.getInstance("https://bluesky-a4117-default-rtdb.europe-west1.firebasedatabase.app/")
-    val ref = database.getReference("/")
-
-    var pH by remember { mutableStateOf<String?>(null) }
-    var turbidite by remember { mutableStateOf<String?>(null) }
-
-    LaunchedEffect(Unit) {
-        ref.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                pH = snapshot.child("pH").getValue(String::class.java)
-                turbidite = snapshot.child("turbidite").getValue(String::class.java)
-                Log.d("EauScreen", "pH: $pH")
-                Log.d("EauScreen", "Turbidité: $turbidite")
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Log.e("EauScreen", "Erreur lors de la récupération des données: ${error.message}")
-            }
-        })
+fun IndexEau(valIndex: Int) {
+    val circleColor = when (valIndex) {
+        in 0..1 -> Color.Red
+        in 2..3 -> Color(0xFFFFA500)
+        else -> Color(0xE200BD03)
     }
 
-    Column(
+    Box(
         modifier = Modifier
             .fillMaxWidth()
-            .fillMaxHeight()
+            .wrapContentHeight()
+            .padding(vertical = 16.dp),
+        contentAlignment = Alignment.Center
     ) {
-        ToolBar(modifier = Modifier.fillMaxWidth())
-
-        Column(
+        Box(
             modifier = Modifier
-                .weight(1f)
-                .fillMaxWidth()
-                .verticalScroll(rememberScrollState())
+                .size(150.dp)
+                .background(circleColor, shape = CircleShape)
+                .padding(16.dp),
+            contentAlignment = Alignment.Center
         ) {
-            Data(pH, turbidite)
+            Text(
+                text = valIndex.toString(),
+                color = Color.White,
+                style = TextStyle(fontSize = 48.sp, fontWeight = FontWeight.Bold)
+            )
         }
-
-        NavigationBar(modifier = Modifier.fillMaxWidth())
     }
 }
 
 @Composable
-fun Data(pH: String?, turbidite: String?) {
+fun DataEau(pH: String?, turbidite: String?) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
