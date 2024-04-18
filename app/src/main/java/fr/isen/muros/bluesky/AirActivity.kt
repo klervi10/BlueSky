@@ -62,18 +62,21 @@ fun AirScreen() {
     var tvoc by remember { mutableStateOf<String?>(null) }
     var ch4 by remember { mutableStateOf<String?>(null) }
     var valIndex by remember { mutableStateOf<Int?>(null) }
+    var time by remember { mutableStateOf<String?>(null) }
 
     LaunchedEffect(Unit) {
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                co2 = snapshot.child("co2").getValue(String::class.java)
-                tvoc = snapshot.child("tvoc").getValue(String::class.java)
-                ch4 = snapshot.child("ch4").getValue(String::class.java)
-                valIndex = snapshot.child("index_air").getValue(Int::class.java)
+                co2 = snapshot.child("CO2").getValue(String::class.java)
+                tvoc = snapshot.child("TVOC").getValue(String::class.java)
+                ch4 = snapshot.child("CH4").getValue(String::class.java)
+                valIndex = snapshot.child("air_index").getValue(Int::class.java)
+                time = snapshot.child("air_time").getValue(String::class.java)
                 Log.d("AIRScreen", "co2: $co2")
                 Log.d("AIRScreen", "tvoc: $tvoc")
                 Log.d("AIRScreen", "ch4: $ch4")
                 Log.d("Index de l'air", "index de l'air : $valIndex")
+                Log.d("time", "time: $time")
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -99,7 +102,21 @@ fun AirScreen() {
                 IndexAir(it)
             }
             DataAir(tvoc, co2, ch4)
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Text(
+                    text = "Dernière mise à jour à : ${time ?: "Chargement..."}",
+                    textAlign = TextAlign.Center
+                )
+            }
         }
+
+
 
         NavigationBarAir(modifier = Modifier.fillMaxWidth())
     }
