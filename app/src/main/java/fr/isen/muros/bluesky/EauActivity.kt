@@ -57,6 +57,8 @@ fun EauScreen() {
     var pH by remember { mutableStateOf<String?>(null) }
     var turbidite by remember { mutableStateOf<String?>(null) }
     var valIndex by remember { mutableStateOf<Int?>(null) }
+    var time by remember { mutableStateOf<String?>(null) }
+
 
     LaunchedEffect(Unit) {
         ref.addValueEventListener(object : ValueEventListener {
@@ -64,9 +66,12 @@ fun EauScreen() {
                 pH = snapshot.child("pH").getValue(String::class.java)
                 turbidite = snapshot.child("turbidite").getValue(String::class.java)
                 valIndex = snapshot.child("index_eau").getValue(Int::class.java)
+                time = snapshot.child("eau_time").getValue(String::class.java)
+
                 Log.d("EauScreen", "pH: $pH")
                 Log.d("EauScreen", "Turbidité: $turbidite")
                 Log.d("Index de l'eau", "index de l'eau : $valIndex")
+                Log.d("time", "time: $time")
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -92,6 +97,18 @@ fun EauScreen() {
                 IndexEau(it)
             }
             DataEau(pH, turbidite)
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Text(
+                    text = "Dernière mise à jour à : ${time ?: "Chargement..."}",
+                    textAlign = TextAlign.Center
+                )
+            }
         }
 
         NavigationBar(modifier = Modifier.fillMaxWidth())
