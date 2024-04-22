@@ -129,23 +129,5 @@ fun Header() {
                 textAlign = TextAlign.Center,
             )
         }
-        Spacer(modifier = Modifier.height(16.dp))
-        Button(
-            onClick = {  },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(60.dp)
-                .padding(horizontal = 32.dp)
-                .wrapContentHeight(Alignment.CenterVertically),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color.White,
-                contentColor = Color.Blue)
-        ) {
-            Text(
-                "Mes appareils",
-                fontSize = 18.sp,
-                textAlign = TextAlign.Center,
-            )
-        }
     }
 }

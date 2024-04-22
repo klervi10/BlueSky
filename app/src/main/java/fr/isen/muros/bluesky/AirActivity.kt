@@ -106,6 +106,42 @@ fun AirScreen() {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .padding(8.dp),
+                horizontalArrangement = Arrangement.Absolute.Left
+            ) {
+                Text(
+                    text = "TVOC : composé organiques volatils totaux",
+                    textAlign = TextAlign.Left
+                )
+            }
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                horizontalArrangement = Arrangement.Absolute.Left
+            ) {
+                Text(
+                    text = "CO2 : Dioxyde de Carbonne",
+                    textAlign = TextAlign.Left
+                )
+            }
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                horizontalArrangement = Arrangement.Absolute.Left
+            ) {
+                Text(
+                    text = "CH4 : Méthane",
+                    textAlign = TextAlign.Left
+                )
+            }
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
                     .padding(16.dp),
                 horizontalArrangement = Arrangement.Center
             ) {
@@ -356,6 +392,8 @@ fun DataAir(tvoc: String?, co2: String?, ch4: String?) {
         }
     }
 }
+
+
 
 @Composable
 fun NavigationBarAir(modifier: Modifier = Modifier) {

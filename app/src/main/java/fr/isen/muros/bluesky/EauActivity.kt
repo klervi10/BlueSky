@@ -101,6 +101,30 @@ fun EauScreen() {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .padding(8.dp),
+                horizontalArrangement = Arrangement.Absolute.Left
+            ) {
+                Text(
+                    text = "Turbidité : mesure de l'aspect plus ou moins trouble",
+                    textAlign = TextAlign.Left
+                )
+            }
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                horizontalArrangement = Arrangement.Absolute.Left
+            ) {
+                Text(
+                    text = "pH : potentiel hydrogène",
+                    textAlign = TextAlign.Left
+                )
+            }
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
                     .padding(16.dp),
                 horizontalArrangement = Arrangement.Center
             ) {
