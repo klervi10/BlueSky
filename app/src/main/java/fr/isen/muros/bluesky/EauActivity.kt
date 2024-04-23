@@ -384,14 +384,5 @@ fun NavigationBar(modifier: Modifier = Modifier) {
                 .padding(8.dp),
             colorFilter = ColorFilter.tint(iconTint)
         )
-        Image(
-            painter = painterResource(id = R.drawable.eau),
-            contentDescription = "Image 3",
-            modifier = Modifier
-                .size(36.dp)
-                .clickable { }
-                .padding(8.dp),
-            colorFilter = ColorFilter.tint(iconTint)
-        )
     }
 }
