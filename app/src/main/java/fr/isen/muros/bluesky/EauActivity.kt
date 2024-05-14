@@ -105,7 +105,7 @@ fun EauScreen() {
                 horizontalArrangement = Arrangement.Absolute.Left
             ) {
                 Text(
-                    text = "Turbidité : mesure de l'aspect plus ou moins trouble",
+                    text = "Turbidité : Mesure de l'aspect plus ou moins trouble",
                     textAlign = TextAlign.Left
                 )
             }
@@ -117,7 +117,7 @@ fun EauScreen() {
                 horizontalArrangement = Arrangement.Absolute.Left
             ) {
                 Text(
-                    text = "pH : potentiel hydrogène",
+                    text = "pH : Potentiel Hydrogène",
                     textAlign = TextAlign.Left
                 )
             }

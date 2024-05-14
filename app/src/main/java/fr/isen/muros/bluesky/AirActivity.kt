@@ -110,7 +110,7 @@ fun AirScreen() {
                 horizontalArrangement = Arrangement.Absolute.Left
             ) {
                 Text(
-                    text = "TVOC : composé organiques volatils totaux",
+                    text = "TVOC : Composé organiques volatils totaux",
                     textAlign = TextAlign.Left
                 )
             }
