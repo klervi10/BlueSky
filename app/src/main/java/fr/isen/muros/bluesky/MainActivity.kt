@@ -142,7 +142,7 @@ fun Header() {
                 contentColor = Color.Blue)
         ) {
             Text(
-                "Mon Appareil",
+                "Mes Appareils",
                 fontSize = 18.sp,
                 textAlign = TextAlign.Center,
             )
