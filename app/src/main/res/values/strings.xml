@@ -2,4 +2,7 @@
     <string name="app_name">BlueSky</string>
     <string name="title_activity_eau">EauActivity</string>
     <string name="title_activity_air">AirActivity</string>
+    <string name="title_activity_scan">ScanActivity</string>
+    <string name="title_activity_device_activity.kt">DeviceActivity.kt</string>
+    <string name="title_activity_device">DeviceActivity</string>
 </resources>
